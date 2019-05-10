@@ -2,7 +2,7 @@ using System.Drawing;
 
 namespace shootstep
 {
-    public interface BaseGameObj
+    public interface IBaseGameObj
     {
         Bitmap GetSprite();
         Point GetPosition();

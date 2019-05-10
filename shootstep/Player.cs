@@ -9,14 +9,29 @@ namespace shootstep
 {
     class Player : IBaseGameObj
     {
+        private Point _position;
+        private Bitmap _sprite;
+
+        public void SetPosition(Point pos)
+        {
+            _position = pos;
+        }
+
+        public void SetSprite(string dir)
+        {
+            _sprite = new Bitmap(dir, false);
+        }
+
         public Bitmap GetSprite()
         {
-            throw new NotImplementedException();
+            return _sprite != null ? _sprite 
+                : throw new Exception("Sprite not assigned.");
         }
 
         public Point GetPosition()
         {
-            throw new NotImplementedException();
+            return _position != null ? _position 
+                : throw  new Exception("Object coordinates not assigned.");
         }
 
         public int GetHashCode()

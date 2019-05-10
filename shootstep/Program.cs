@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace shootstep
 {
@@ -10,7 +7,8 @@ namespace shootstep
     {
         static void Main(string[] args)
         {
-
+            Form mainWin = new Form();
+            Application.Run(mainWin);
         }
     }
 }

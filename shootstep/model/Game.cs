@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 
 namespace shootstep
@@ -13,10 +14,8 @@ namespace shootstep
             _player = new Player(32,32, new Bitmap(0,0), -8,8,8,8);
             _map.AddObject(_player,false);
         }
-        void Step()
-        {
-            
-        }
-        
+
+        public event Action Step;
+
     }
 }

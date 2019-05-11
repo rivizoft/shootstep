@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 
 namespace shootstep
@@ -6,8 +7,12 @@ namespace shootstep
     {
         void SetSprite(string dir);
         Bitmap GetSprite();
-        void SetPosition(Point pos);
+        void MoveTo(Point vector);
+        void ForceAbsolutePosition(Point pos);
         Point GetPosition();
         int GetHashCode();
+        Rectangle GetBbox();
+        void ForceBbox(Rectangle bbox);
+        event Action<IBaseGameObj> Collision;
     }
 }

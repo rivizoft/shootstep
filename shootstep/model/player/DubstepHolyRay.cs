@@ -4,7 +4,7 @@ using System.Drawing;
 namespace shootstep
 {
     public class DubstepHolyRay : IBaseGameObj
-    {
+    {//TODO: implement ray
         public void SetSprite(string dir)
         {
             throw new NotImplementedException();

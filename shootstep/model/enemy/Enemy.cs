@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace shootstep
 {
     class Enemy : IBaseGameObj
-    {
+    {//TODO: implement enemy
         public void SetSprite(string dir)
         {
             throw new NotImplementedException();

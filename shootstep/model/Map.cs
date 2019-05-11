@@ -7,7 +7,7 @@ namespace shootstep
     public class Map
     //не класс а залупа, я хуй знает как это сделать красиво
     //есть мысль использовать словарь с координатами вместо ключа и каждый степ его перебирать
-    
+    //TODO: make it proper way
     {
         private HashSet<IBaseGameObj> map;
         private int width;

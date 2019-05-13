@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace shootstep.view
@@ -46,16 +47,16 @@ namespace shootstep.view
                         break;
                 }
             };
-            
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             var graphics = e.Graphics;
+
             graphics.Clear(Color.Black);
+
             foreach (var o in _game.GetMap())
                 graphics.DrawImage(o.Sprite, o.Position);
         }
-        
     }
 }

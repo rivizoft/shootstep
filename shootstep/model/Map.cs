@@ -8,13 +8,14 @@ namespace shootstep
     //TODO: make it proper way
     {
         //private HashSet<IBaseGameObj> map;
-        private int width;
-        private int heigth;
+        private int _width;
+        private int _heigth;
 
         public Map(int width, int heigth, params IBaseGameObj[] content)
         {
-            this.width = width;
-            this.heigth = heigth;
+            _width = width;
+            _heigth = heigth;
+
             foreach (var c in content)
             {
                 this.Add(c);

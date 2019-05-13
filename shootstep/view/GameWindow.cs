@@ -14,6 +14,7 @@ namespace shootstep.view
             _game = game;
             _defaultSize = new Size(size.Width, size.Height);
             this.Init(size);
+            this.Invalidate();
         }
 
         private void Init(Size size)
@@ -27,7 +28,7 @@ namespace shootstep.view
             _canvas.Size = this.Size;
             //this.Resize += (sender, args) => _canvas.Scale();
             this.Controls.Clear();
-            this.Controls.Add(_canvas);
+            //this.Controls.Add(_canvas);
         }
 
         protected override void OnPaint(PaintEventArgs e)

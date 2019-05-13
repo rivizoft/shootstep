@@ -13,11 +13,12 @@ namespace shootstep
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
 
-        public Gun(Point positionPlayer, Bitmap sprite, Rectangle bbox)
+        public Gun(Player bindPlayer, Bitmap sprite, Rectangle bbox)
         {
-            Position = positionPlayer;
+            Position = bindPlayer.Position;
             Sprite = sprite;
             Bbox = bbox;
+            bindPlayer.MovePlayer += () => Position = bindPlayer.Position;
         }
 
         public void MoveTo(Point vector)

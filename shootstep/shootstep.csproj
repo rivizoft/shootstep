@@ -53,15 +53,24 @@
     <Compile Include="model\player\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="resources.Designer.cs" />
+    <Compile Include="resourses.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>resourses.resx</DependentUpon>
+    </Compile>
     <Compile Include="view\GameWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources.resx" />
-    <Content Include="Resources\Player.png" />
+    <EmbeddedResource Include="resourses.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>resourses.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Без имени-1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

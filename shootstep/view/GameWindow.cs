@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace shootstep.view
 {
@@ -13,6 +14,11 @@ namespace shootstep.view
             this.MinimumSize = this.MaximumSize;
             this.Size = this.MaximumSize;
             
+            var canvas = new PictureBox();
+            canvas.BackColor = Color.Red;
+            canvas.Size = new Size(128,128);
+            this.Controls.Add(canvas);
+            this.Invalidate();
         }
         
     }

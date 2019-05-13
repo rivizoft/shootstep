@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using shootstep.view;
 
 namespace shootstep
 {
@@ -7,7 +8,7 @@ namespace shootstep
     {
         static void Main(string[] args)
         {
-            Form mainWin = new Form();
+            var mainWin = new GameWindow(new Game());
             Application.Run(mainWin);
         }
     }

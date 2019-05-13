@@ -4,7 +4,8 @@ using System.Drawing;
 namespace shootstep
 {
     public class Game
-    {//TODO: implement Game as main model controller
+    {
+        //TODO: implement Game as main model controller
         private Map _map;
         private Player _player;
         

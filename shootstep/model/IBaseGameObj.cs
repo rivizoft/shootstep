@@ -5,14 +5,11 @@ namespace shootstep
 {
     public interface IBaseGameObj
     {
-        void SetSprite(string dir);
-        Bitmap GetSprite();
+        Bitmap Sprite { get; set; }
+        Point Position { get; set; }
+        Rectangle Bbox { get; set; }
         void MoveTo(Point vector);
-        void ForceAbsolutePosition(Point pos);
-        Point GetPosition();
         int GetHashCode();
-        Rectangle GetBbox();
-        void ForceBbox(Rectangle bbox);
         event Action<IBaseGameObj> Collision;
     }
 }

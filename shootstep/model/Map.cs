@@ -29,6 +29,7 @@ namespace shootstep
             map.Add(gameObj);
         }
         
-        public bool PositionFree(int x, int y) => map.Count(i => i.GetHashCode() == new Point(x,y).GetHashCode()) == 0;
+        public bool PositionFree(int x, int y) => map.Count(i => i.GetHashCode() == 
+                                                                 new Point(x,y).GetHashCode()) == 0;
     }
 }

@@ -8,40 +8,24 @@ using System.Threading.Tasks;
 namespace shootstep
 {
     class Enemy : IBaseGameObj
-    {//TODO: implement enemy
-        public void SetSprite(string dir)
-        {
-            throw new NotImplementedException();
-        }
+    {
+        public Bitmap Sprite { get; set; }
+        public Point Position { get; set; }
+        public Rectangle Bbox { get; set; }
 
-        public Bitmap GetSprite()
+        public Enemy(Point position, Bitmap sprite, Rectangle bbox)
         {
-            throw new NotImplementedException();
+            Position = position;
+            Sprite = sprite;
+            Bbox = bbox;
         }
 
         public void MoveTo(Point vector)
         {
-            throw new NotImplementedException();
-        }
-
-        public void ForceAbsolutePosition(Point pos)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Point GetPosition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Rectangle GetBbox()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ForceBbox(Rectangle bbox)
-        {
-            throw new NotImplementedException();
+            var position = Position;
+            position.X = vector.X;
+            position.Y = vector.Y;
+            Position = position;
         }
 
         public event Action<IBaseGameObj> Collision;

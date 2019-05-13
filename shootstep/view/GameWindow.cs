@@ -49,7 +49,7 @@ namespace shootstep.view
                 this.Height / 2 - _game.GetPlayer().Position.Y);
             var graphics = e.Graphics;
 
-            graphics.Clear(Color.Black);
+            graphics.Clear(Color.LightSlateGray);
 
             foreach (var o in _game.GetMap())
                 graphics.DrawImage(o.Sprite, new Point(o.Position.X + shift.X, o.Position.Y + shift.Y));

@@ -17,12 +17,9 @@ namespace shootstep
             _map = new Map(128, 128);
             _player = new Player(new Point(0,0), resourses.Player, new Rectangle(0, 0, 32, 32));
             _map.AddObject(_player,false);
-<<<<<<< HEAD
             _gun = new Gun(_player.Position, resourses.Gun, new Rectangle(0, 0, 0, 0));
             _map.AddObject(_gun, false);
-=======
             _map.AddObject(new Enemy(new Point(64, 64), resourses.Enemy, new Rectangle(0,0,0,0)), false);
->>>>>>> 4b6fcfbc1087a661235951d0549bfe2861510aa5
             _player.MovePlayer += () => Update.Invoke();
             _gun.MoveGun += () => Update.Invoke();
         }

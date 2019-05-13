@@ -28,7 +28,7 @@ namespace shootstep.view
 
         private void SetControls(Game game)
         {
-            this.KeyPress += (sender, args) =>
+            KeyPress += (sender, args) =>
             {
                 switch (args.KeyChar)
                 {

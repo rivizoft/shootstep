@@ -30,6 +30,14 @@ namespace shootstep
             position.X += vector.X;
             position.Y += vector.Y;
             Position = position;
+            try
+            {
+                MovePlayer.Invoke();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public override int GetHashCode()

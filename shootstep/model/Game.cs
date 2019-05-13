@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Windows.Forms.VisualStyles;
 
 namespace shootstep
 {
@@ -12,8 +13,9 @@ namespace shootstep
         public Game()
         {
             _map = new Map(128,128);
-            _player = new Player(new Point(0,0), new Bitmap("Player.png"), new Rectangle(0,0, 32, 32));
+            _player = new Player(new Point(0,0), resourses.Player, new Rectangle(0,0, 32, 32));
             _map.AddObject(_player,false);
+            _player.MovePlayer += () => Update.Invoke();
         }
 
         public Map GetMap()
@@ -21,7 +23,12 @@ namespace shootstep
             return _map;
         }
 
-        public event Action Step;
+        public Player GetPlayer()
+        {
+            return _player;
+        }
+
+        public event Action Update;
 
     }
 }

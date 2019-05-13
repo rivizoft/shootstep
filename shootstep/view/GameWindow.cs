@@ -35,7 +35,7 @@ namespace shootstep.view
             var graphics = e.Graphics;
             graphics.Clear(Color.Black);
             foreach (var o in _game.GetMap())
-                graphics.DrawImage(o.Sprite);
+                graphics.DrawImage(o.Sprite, o.Position);
         }
         
     }

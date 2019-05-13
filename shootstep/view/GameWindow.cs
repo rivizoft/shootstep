@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -29,34 +30,29 @@ namespace shootstep.view
 
         private void SetControls(Game game)
         {
-            KeyPress += (sender, args) =>
+            KeyDown += (sender, args) =>
             {
-                switch (args.KeyChar)
-                {
-                    case 'W':
-                        game.GetPlayer().MoveTo(new Point(0, -10));
-                        break;
-                    case 'S':
-                        game.GetPlayer().MoveTo(new Point(0, 10));
-                        break;
-                    case 'A':
-                        game.GetPlayer().MoveTo(new Point(-10, 0));
-                        break;
-                    case 'D':
-                        game.GetPlayer().MoveTo(new Point(10, 0));
-                        break;
-                }
+                if (args.KeyCode == Keys.W)
+                    game.GetPlayer().MoveTo(new Point(0, -8));
+                if (args.KeyCode == Keys.S)
+                    game.GetPlayer().MoveTo(new Point(0, 8));
+                if (args.KeyCode == Keys.A)
+                    game.GetPlayer().MoveTo(new Point(-8, 0));
+                if (args.KeyCode == Keys.D)
+                    game.GetPlayer().MoveTo(new Point(8, 0));
             };
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            var shift = new Point(this.Width / 2 - _game.GetPlayer().Position.X, 
+                this.Height / 2 - _game.GetPlayer().Position.Y);
             var graphics = e.Graphics;
 
             graphics.Clear(Color.Black);
 
             foreach (var o in _game.GetMap())
-                graphics.DrawImage(o.Sprite, o.Position);
+                graphics.DrawImage(o.Sprite, new Point(o.Position.X + shift.X, o.Position.Y + shift.Y));
         }
     }
 }

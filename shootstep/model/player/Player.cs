@@ -13,7 +13,6 @@ namespace shootstep
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
 
-
         public Player(Point position, Bitmap sprite, Rectangle bbox)
         {
             Position = position;
@@ -30,14 +29,7 @@ namespace shootstep
             position.X += vector.X;
             position.Y += vector.Y;
             Position = position;
-            try
-            {
-                MovePlayer.Invoke();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            MovePlayer.Invoke();
         }
 
         public override int GetHashCode()

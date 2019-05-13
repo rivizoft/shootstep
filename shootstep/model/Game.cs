@@ -12,8 +12,13 @@ namespace shootstep
         public Game()
         {
             _map = new Map(128,128);
-            _player = new Player(32,32, new Bitmap(0,0), -8,8,8,8);
+            _player = new Player(new Point(0,0), new Bitmap("Player.png"), new Rectangle(0,0, 32, 32));
             _map.AddObject(_player,false);
+        }
+
+        public Map GetMap()
+        {
+            return _map;
         }
 
         public event Action Step;

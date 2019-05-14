@@ -8,12 +8,14 @@ namespace shootstep
         public Bitmap Sprite { get; set; }
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
+        public Bitmap SpriteGlow { get; set; }
 
-        public DubstepHolyRay(Point point, Bitmap sprite, Rectangle bbox)
+        public DubstepHolyRay(Point point, Bitmap sprite, Rectangle bbox, Bitmap spriteGlow)
         {
             Sprite = sprite;
             Position = point;
             Bbox = bbox;
+            SpriteGlow = spriteGlow;
         }
 
         public void MoveTo(Point vector)

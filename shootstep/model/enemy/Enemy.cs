@@ -12,12 +12,14 @@ namespace shootstep
         public Bitmap Sprite { get; set; }
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
+        public Bitmap SpriteGlow { get; set; }
 
-        public Enemy(Point position, Bitmap sprite, Rectangle bbox)
+        public Enemy(Point position, Bitmap sprite, Rectangle bbox, Bitmap spriteGlow)
         {
             Position = position;
             Sprite = sprite;
             Bbox = bbox;
+            SpriteGlow = BlurEffect.Blur(new Bitmap(spriteGlow, sprite.Width + 30, sprite.Height + 30), 10);
         }
 
         public void MoveTo(Point vector)

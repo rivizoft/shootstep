@@ -10,6 +10,7 @@ namespace shootstep
         Bitmap Sprite { get; set; }
         Point Position { get; set; }
         Rectangle Bbox { get; set; }
+        Bitmap SpriteGlow { get; set; }
         void MoveTo(Point vector);
         int GetHashCode();
         event Action<IBaseGameObj> Collision;

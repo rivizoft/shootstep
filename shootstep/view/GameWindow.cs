@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace shootstep.view
 {
@@ -64,19 +65,26 @@ namespace shootstep.view
             var shift = _camera.GetViewPoint();
             var graphics = e.Graphics;
 
-            graphics.Clear(Color.LightSlateGray);
+            graphics.Clear(Color.FromArgb(54, 54, 54));
 
             foreach (var o in _game.GetMap())
                 if (o.GetType() != typeof(Gun))
-                    graphics.DrawImage(o.Sprite, new Point(o.Position.X + shift.X, o.Position.Y + shift.Y));
+                {
+                    graphics.DrawImage(o.SpriteGlow, new Point(o.Position.X + shift.X - o.Sprite.Width * 3 / 4 - 2,
+                        o.Position.Y + shift.Y - o.Sprite.Height * 3 / 4 - 2));
+                    graphics.DrawImage(o.Sprite, new Point(o.Position.X + shift.X - o.Sprite.Width / 2,
+                        o.Position.Y + shift.Y - o.Sprite.Height / 2));
+                }
                 else
                 {
-                    graphics.TranslateTransform(o.Position.X + shift.X + o.Sprite.Width / 2, 
+                    graphics.TranslateTransform(o.Position.X + shift.X + o.Sprite.Width / 2,
                         o.Position.Y + shift.Y + o.Sprite.Height / 2);
-                    graphics.RotateTransform((((Gun)o).Angle + (float)(Math.Atan(Math.PI / 2) * 90)) % 360 );
-                    graphics.DrawImage(o.Sprite, new Point(-o.Sprite.Width / 2,-o.Sprite.Height / 2));
+                    graphics.RotateTransform((((Gun)o).Angle + (float)(Math.Atan(Math.PI / 2) * 90)) % 360);
+                    graphics.DrawImage(o.Sprite, new Point(-o.Sprite.Width / 2, -2 * o.Sprite.Height));
                     graphics.ResetTransform();
                 }
+
+            
 
             _camera.Update();
         }

@@ -11,17 +11,33 @@ namespace shootstep
         private Map _map;
         private Player _player;
         private Gun _gun;
-        
-        public Game()
+        private Point _cursorPosition;
+        public Point CursorPosition
         {
-            _map = new Map(128, 128);
+            get => _cursorPosition;
+            set
+            {
+                _cursorPosition = value; 
+                CursorUpdate?.Invoke(value);
+            }
+        }
+        
+        public Game(int mapWidth, int mapHeight)
+        {
+            _map = new Map(mapWidth, mapHeight);
             _player = new Player(new Point(0,0), resourses.Player, new Rectangle(0, 0, 32, 32));
-            _map.AddObject(_player,false);
             _gun = new Gun(_player, resourses.Gun, new Rectangle(0, 0, 0, 0));
+            //TODO: отдельный метод здесь AddObjectToMap или типа того, автоматически биндящий Moved на Invoke:
+            _player.Moved += () => Update?.Invoke();
+            _gun.Moved += () => Update?.Invoke();
+            _map.AddObject(_player,false);
             _map.AddObject(_gun, false);
+            // ^ ну ты понел
+            //а этому парню вообще не суждено звенеть в ивенты:
             _map.AddObject(new Enemy(new Point(64, 64), resourses.Enemy, new Rectangle(0,0,0,0)), false);
-            _player.MovePlayer += () => Update.Invoke();
-            _gun.MoveGun += () => Update.Invoke();
+
+            CursorUpdate += point => _gun.Angle = (float)((Math.Atan2(point.Y - _gun.Position.Y, point.X - _gun.Position.X)
+                                                    + 2 * Math.PI) * 180 / Math.PI) % 360;
         }
 
         public Map GetMap()
@@ -35,6 +51,7 @@ namespace shootstep
         }
 
         public event Action Update;
+        private event Action<Point> CursorUpdate;
 
     }
 }

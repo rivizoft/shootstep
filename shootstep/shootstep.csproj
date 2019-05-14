@@ -59,6 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>resourses.resx</DependentUpon>
     </Compile>
+    <Compile Include="view\Camera.cs" />
     <Compile Include="view\GameWindow.cs" />
   </ItemGroup>
   <ItemGroup>

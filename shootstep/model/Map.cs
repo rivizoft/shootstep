@@ -5,7 +5,7 @@ using System.Linq;
 namespace shootstep
 {
     public class Map : HashSet<IBaseGameObj>
-    //TODO: make it proper way
+    //TODO: добавить обработчик коллизий
     {
         //private HashSet<IBaseGameObj> map;
         private int _width;

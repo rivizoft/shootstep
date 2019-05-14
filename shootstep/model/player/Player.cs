@@ -29,7 +29,7 @@ namespace shootstep
             position.X += vector.X;
             position.Y += vector.Y;
             Position = position;
-            MovePlayer.Invoke();
+            Moved?.Invoke();
         }
 
         public override int GetHashCode()
@@ -38,6 +38,6 @@ namespace shootstep
         }
 
         public event Action<IBaseGameObj> Collision;
-        public event Action MovePlayer;
+        public event Action Moved;
     }
 }

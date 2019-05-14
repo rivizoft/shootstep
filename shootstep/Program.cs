@@ -9,8 +9,8 @@ namespace shootstep
     {
         static void Main(string[] args)
         {
-            var mainWin = new GameWindow(new Game(), new Size(
-                Screen.PrimaryScreen.Bounds.Width * 3 / 4, Screen.PrimaryScreen.Bounds.Height * 3 / 4));
+            var mainWin = new GameWindow(new Game(512,512), new Size(
+                Screen.PrimaryScreen.Bounds.Width * 7 / 8, Screen.PrimaryScreen.Bounds.Height * 7 / 8));
             Application.Run(mainWin);
         }
     }

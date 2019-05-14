@@ -29,5 +29,7 @@ namespace shootstep
         }
 
         public event Action<IBaseGameObj> Collision;
+        public event Action Moved;
+        
     }
 }

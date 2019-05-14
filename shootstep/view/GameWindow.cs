@@ -21,6 +21,11 @@ namespace shootstep.view
             this.DoubleBuffered = true;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Invalidate();
+
+            // От мерцания
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | 
+                     ControlStyles.AllPaintingInWmPaint | 
+                     ControlStyles.UserPaint, true);
         }
 
         private void Init(Size size)
@@ -49,6 +54,7 @@ namespace shootstep.view
                 _game.CursorPosition = new Point(MousePosition.X - _camera.GetViewPoint().X,
                     MousePosition.Y - _camera.GetViewPoint().Y);
             };
+
             MouseMove += (sender, args) => _game.CursorPosition = new Point(args.Location.X - _camera.GetViewPoint().X,
                 args.Location.Y - _camera.GetViewPoint().Y);
         }
@@ -57,7 +63,9 @@ namespace shootstep.view
         {
             var shift = _camera.GetViewPoint();
             var graphics = e.Graphics;
+
             graphics.Clear(Color.LightSlateGray);
+
             foreach (var o in _game.GetMap())
                 if (o.GetType() != typeof(Gun))
                     graphics.DrawImage(o.Sprite, new Point(o.Position.X + shift.X, o.Position.Y + shift.Y));
@@ -69,6 +77,7 @@ namespace shootstep.view
                     graphics.DrawImage(o.Sprite, new Point(-o.Sprite.Width / 2,-o.Sprite.Height / 2));
                     graphics.ResetTransform();
                 }
+
             _camera.Update();
         }
     }

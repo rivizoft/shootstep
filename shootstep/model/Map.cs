@@ -18,13 +18,29 @@ namespace shootstep
 
             foreach (var c in content)
             {
-                this.Add(c);
+                AddObject(c, false);
             }
         }
 
         public void AddObject(IBaseGameObj gameObj, bool collisionReplace)
         {
+            gameObj.Moved += () => CheckCollisions(gameObj);
             this.Add(gameObj);
+        }
+
+        public void CheckCollisions(IBaseGameObj gameObj)
+        {
+            foreach (var other in this)
+            {
+                if (other != gameObj)
+                {
+                    var bbox1 = gameObj.Bbox;
+                    bbox1.Location = gameObj.Position;
+                    var bbox2 = other.Bbox;
+                    bbox2.Location = other.Position;
+                    if (bbox1.IntersectsWith(bbox2)) gameObj.InvokeCollision(other);
+                }
+            }
         }
         
         public bool PositionFree(int x, int y) => this.Count(i => i.GetHashCode() == 

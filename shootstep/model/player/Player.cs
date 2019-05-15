@@ -10,6 +10,16 @@ namespace shootstep
 {
     public class Player : IBaseGameObj
     {
+        private Point _speedVector;
+        public Point SpeedVector
+        {
+            get => _speedVector;
+            set
+            {
+                _speedVector = value;
+                Move();
+            }
+        }
         public Bitmap Sprite { get; set; }
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
@@ -22,6 +32,7 @@ namespace shootstep
             Bbox = bbox;
             //1 - степень размытия
             SpriteGlow = new Bitmap(BlurEffect.Blur(spriteGlow, 1), sprite.Width + 30, sprite.Height + 30);
+            Collision += (other) => SpeedVector = Point.Empty;
         }
         
         public Player(int x, int y, Bitmap sprite, int bboxX, int bboxY, 
@@ -30,11 +41,30 @@ namespace shootstep
 
         public void MoveTo(Point vector)
         {
+            Moved?.Invoke();
             var position = Position;
             position.X += vector.X;
             position.Y += vector.Y;
             Position = position;
             Moved?.Invoke();
+        }
+
+        private void Move()
+        {
+            if (SpeedVector.IsEmpty) return;
+            var position = Position;
+            position.X += SpeedVector.X;
+            position.Y += SpeedVector.Y;
+            Position = position;
+            Moved?.Invoke();
+        }
+
+        public void UpdatePosition()
+        {
+            var speed = SpeedVector;
+            speed.X = speed.X * 3 / 4;
+            speed.Y = speed.Y * 3 / 4;
+            SpeedVector = speed;
         }
 
         public override int GetHashCode()
@@ -44,6 +74,8 @@ namespace shootstep
 
         public event Action<IBaseGameObj> Collision;
         public event Action Moved;
+
+        public void InvokeCollision(IBaseGameObj other) => Collision?.Invoke(other);
     }
 
     class BlurEffect

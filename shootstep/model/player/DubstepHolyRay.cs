@@ -5,6 +5,7 @@ namespace shootstep
 {
     public class DubstepHolyRay : IBaseGameObj
     {
+        public Point SpeedVector { get; set; }
         public Bitmap Sprite { get; set; }
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
@@ -26,6 +27,7 @@ namespace shootstep
             Position = position;
         }
 
+        public void InvokeCollision(IBaseGameObj other) => Collision?.Invoke(other);
         public event Action<IBaseGameObj> Collision;
         public event Action Moved;
     }

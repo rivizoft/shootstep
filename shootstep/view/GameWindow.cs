@@ -23,7 +23,7 @@ namespace shootstep.view
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Invalidate();
 
-            // От мерцания
+            // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             SetStyle(ControlStyles.OptimizedDoubleBuffer | 
                      ControlStyles.AllPaintingInWmPaint | 
                      ControlStyles.UserPaint, true);
@@ -44,19 +44,21 @@ namespace shootstep.view
         {
             KeyDown += (sender, args) =>
             {
+                var s = game.GetPlayer().SpeedVector;
                 if (args.KeyCode == Keys.W)
-                    game.GetPlayer().MoveTo(new Point(0, -8));
+                    s.Y = -8;
                 if (args.KeyCode == Keys.S)
-                    game.GetPlayer().MoveTo(new Point(0, 8));
+                    s.Y = 8;
                 if (args.KeyCode == Keys.A)
-                    game.GetPlayer().MoveTo(new Point(-8, 0));
+                    s.X = -8;
                 if (args.KeyCode == Keys.D)
-                    game.GetPlayer().MoveTo(new Point(8, 0));
-                _game.CursorPosition = new Point(MousePosition.X - _camera.GetViewPoint().X,
+                    s.X = 8;
+                game.GetPlayer().SpeedVector = s;
+                game.CursorPosition = new Point(MousePosition.X - _camera.GetViewPoint().X,
                     MousePosition.Y - _camera.GetViewPoint().Y);
             };
 
-            MouseMove += (sender, args) => _game.CursorPosition = new Point(args.Location.X - _camera.GetViewPoint().X,
+            MouseMove += (sender, args) => game.CursorPosition = new Point(args.Location.X - _camera.GetViewPoint().X,
                 args.Location.Y - _camera.GetViewPoint().Y);
         }
 

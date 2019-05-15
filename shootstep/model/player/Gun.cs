@@ -9,6 +9,7 @@ namespace shootstep
 {
     public class Gun : IBaseGameObj
     {
+        public Point SpeedVector { get; set; }
         public Bitmap Sprite { get; set; }
         private float _angle;
         public Point Position { get; set; }
@@ -40,6 +41,7 @@ namespace shootstep
             Position = vector;
         }
 
+        public void InvokeCollision(IBaseGameObj other) => Collision?.Invoke(other);
         public event Action<IBaseGameObj> Collision;
         public event Action Moved;
     }

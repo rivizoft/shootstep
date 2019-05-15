@@ -62,7 +62,10 @@
       <DependentUpon>resourses.resx</DependentUpon>
     </Compile>
     <Compile Include="view\Camera.cs" />
-    <Compile Include="view\GameWindow.cs" />
+    <Compile Include="view\GameWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\SoundContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -87,6 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Gun.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sound1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sound2.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

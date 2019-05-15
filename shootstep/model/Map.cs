@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -38,7 +39,11 @@ namespace shootstep
                     bbox1.Location = gameObj.Position;
                     var bbox2 = other.Bbox;
                     bbox2.Location = other.Position;
-                    if (bbox1.IntersectsWith(bbox2)) gameObj.InvokeCollision(other);
+                    if (bbox1.IntersectsWith(bbox2))
+                    {
+                        Console.WriteLine("Collision");
+                        gameObj.InvokeCollision(other);
+                    }
                 }
             }
         }

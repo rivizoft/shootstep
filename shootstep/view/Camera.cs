@@ -26,8 +26,8 @@ namespace shootstep.view
         {
             _width = newWidth;
             _height = newHeight;
-            this._vDelay = _height * 3 / 20;
-            this._hDelay = _width * 3 / 20;
+            this._vDelay = _height * 3 / 70;
+            this._hDelay = _width * 3 / 70;
         }
         
         public void SetNewParams(int newWidth, int newHeight, IBaseGameObj newFollowObj)

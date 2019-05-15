@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Media;
+using System.Runtime.Remoting.Channels;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -23,7 +25,6 @@ namespace shootstep.view
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Invalidate();
 
-            // �� ��������
             SetStyle(ControlStyles.OptimizedDoubleBuffer | 
                      ControlStyles.AllPaintingInWmPaint | 
                      ControlStyles.UserPaint, true);
@@ -42,6 +43,21 @@ namespace shootstep.view
 
         private void SetControls(Game game)
         {
+            var firstSound = new SoundPlayer();
+            SoundContainer.Init(resourses.sound1, resourses.sound2);
+
+            MouseDown += (sender, args) =>
+            {
+                firstSound.Stop();
+                firstSound.Stream = SoundContainer.GetNext();
+                firstSound.PlayLooping();
+            };
+
+            MouseUp += (sender, args) =>
+            {
+                firstSound.Stop();
+            };
+
             KeyDown += (sender, args) =>
             {
                 var s = game.GetPlayer().SpeedVector;

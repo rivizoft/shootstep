@@ -41,6 +41,8 @@ namespace shootstep.view
             this.Controls.Clear();
         }
 
+        //private void MoveEnemy()
+
         private void SetControls(Game game)
         {
             var firstSound = new SoundPlayer();

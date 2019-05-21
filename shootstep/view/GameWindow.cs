@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Channels;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using NAudio.Wave;
 
 namespace shootstep.view
 {
@@ -57,13 +58,11 @@ namespace shootstep.view
 
         private void SetControls(Game game)
         {
-            var sound = new SoundPlayer();
-            SoundContainer.Init(resourses.sound1, resourses.sound2);
+            var sound = new SoundContainer();
+            sound.Init(resourses.sound1, resourses.sound2, resourses.sound3, resourses.sound4);
 
             MouseDown += (sender, args) =>
             {
-                sound.Stop();
-                sound.Stream = SoundContainer.GetNext();
                 sound.PlayLooping();
             };
 

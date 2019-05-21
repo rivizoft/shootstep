@@ -106,5 +106,11 @@
   <ItemGroup>
     <None Include="Resources\Dust.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sound3.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sound4.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

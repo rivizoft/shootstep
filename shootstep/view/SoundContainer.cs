@@ -36,6 +36,14 @@ namespace shootstep.view
             _currentSound.Position = 0;
         }
 
+        public void Pause()
+        {
+            _soundOut.Pause();
+
+            if (_currentSound.Length == _currentSound.Position)
+                _currentSound.Position = 0;
+        }
+
         private Stream GetNext()
         {
             return _audioContainer[(new Random()).Next(0, _audioContainer.Length)];

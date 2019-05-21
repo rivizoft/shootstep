@@ -15,6 +15,8 @@ namespace shootstep
         private Gun _gun;
         private Dust _dust;
         private Point _cursorPosition;
+        private Globals _globalConfig;
+        
         public Point CursorPosition
         {
             get => _cursorPosition;
@@ -25,34 +27,35 @@ namespace shootstep
             }
         }
         
-        public Game(int mapWidth, int mapHeight)
+        public Game()
         {
-            _map = new Map(mapWidth, mapHeight);
+            _globalConfig = Globals.GetGlobalInfo();
+            _map = new Map(_globalConfig.GetMapOptions().Width, _globalConfig.GetMapOptions().Height);
 
             _player = new Player(new Point(0,0), 
                 resourses.Player, 
                 new Rectangle(0, 0, 32, 32), 
                 resourses.Player);
-
             _gun = new Gun(_player, resourses.Gun, 
                 new Rectangle(0, 0, 0, 0), 
                 resourses.Gun);
-
             _dust = new Dust(new Point(_player.Position.X + 40, 10),
                 resourses.Dust,
                 new Rectangle(_player.Position.X + 40, 10, 5, 5));
-
             AddToMap(_player, _gun, _dust);
 
             CursorUpdate += point => _gun.Angle = (float)((Math.Atan2(point.Y - _gun.Position.Y, point.X - _gun.Position.X)
                                                     + 2 * Math.PI) * 180 / Math.PI) % 360;
             Update += () => _player.UpdatePosition();
+            Update += () => _globalConfig.Update.Invoke();
 
             _timer = new Timer {Interval = 1};
             _timer.Start();
-            _timer.Tick += (x, y) => Update.Invoke();
+            _timer.Tick += (x, y) => Update?.Invoke();
         }
 
+        public Globals GetGlobalOptions() => _globalConfig;
+        
         public Map GetMap()
         {
             return _map;
@@ -72,8 +75,19 @@ namespace shootstep
         {
             foreach (var o in gameObjects)
             {
-                //o.Moved += () => Update?.Invoke();
+                o.Moved += () => Update?.Invoke();
                 _map.AddObject(o, false);
+            }
+        }
+
+        public void TryAddEnemy()
+        {
+            var e = Globals.GetGlobalInfo();
+            if (e.Enemy.SpawnGranted)
+            {
+                AddToMap(Enemy.SpawnEnemy(new Enemy(Point.Empty, resourses.Enemy,
+                        new Rectangle(Point.Empty, resourses.Enemy.Size), resourses.Enemy),
+                    _player.Position, e.WindowSize, e.View.GetViewPoint()));
             }
         }
 

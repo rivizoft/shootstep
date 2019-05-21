@@ -54,7 +54,9 @@ namespace shootstep
             if (SpeedVector.IsEmpty) return;
             var position = Position;
             position.X += SpeedVector.X / 3;
+            position.X %= Globals.GetGlobalInfo().GetMapOptions().Width;
             position.Y += SpeedVector.Y / 3;
+            position.Y %= Globals.GetGlobalInfo().GetMapOptions().Height;
             Position = position;
             Moved?.Invoke();
         }

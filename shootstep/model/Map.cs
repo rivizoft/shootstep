@@ -25,8 +25,13 @@ namespace shootstep
 
         public void AddObject(IBaseGameObj gameObj, bool collisionReplace)
         {
+            var p = gameObj.Position;
+            p.X %= _width;
+            p.Y %= _heigth;
+            gameObj.Position = p;
             gameObj.Moved += () => CheckCollisions(gameObj);
             this.Add(gameObj);
+            if (gameObj.GetType() == typeof(Enemy)) Globals.GetGlobalInfo().Enemy.Count++;
         }
 
         public void CheckCollisions(IBaseGameObj gameObj)

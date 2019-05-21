@@ -15,12 +15,12 @@ namespace shootstep.view
         private Size _defaultSize;
         private Camera _camera;
         
-        public GameWindow(Game game, Size size)
+        public GameWindow(Size size)
         {
-            _game = game;
+            _game = new Game();
             _defaultSize = new Size(size.Width, size.Height);
             this.Init(size);
-            this.SetControls(game);
+            this.SetControls(_game);
             _game.Update += MoveDust;
             this.DoubleBuffered = true;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -37,8 +37,10 @@ namespace shootstep.view
             this.MaximumSize = size;
             this.MinimumSize = this.MaximumSize;
             this.Size = this.MaximumSize;
+            _game.GetGlobalOptions().WindowSize = this.Size;
             this._camera = new Camera(_game.GetPlayer(), this.Width, this.Height);
             this._camera.Moved += this.Invalidate;
+            Globals.Init(512,512, _camera, _game.GetPlayer());
             this.Controls.Clear();
         }
 

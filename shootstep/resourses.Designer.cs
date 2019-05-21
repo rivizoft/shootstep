@@ -127,5 +127,23 @@ namespace shootstep {
                 return ResourceManager.GetStream("sound2", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream sound3 {
+            get {
+                return ResourceManager.GetStream("sound3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream sound4 {
+            get {
+                return ResourceManager.GetStream("sound4", resourceCulture);
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace shootstep.view
     {
         private static Stream[] _audioContainer;
         private WaveOutEvent _soundOut;
+        private Stream _currentSound;
 
         public void Init(params Stream[] audio)
         {
@@ -17,19 +18,22 @@ namespace shootstep.view
 
         public void Play()
         {
-            _soundOut.Init(new WaveFileReader(GetNext()));
+            _currentSound = GetNext();
+            _soundOut.Init(new WaveFileReader(_currentSound));
             _soundOut.Play();
         }
 
         public void PlayLooping()
         {
-            _soundOut.Init(new LoopStream(new WaveFileReader(GetNext())));
+            _currentSound = GetNext();
+            _soundOut.Init(new LoopStream(new WaveFileReader(_currentSound)));
             _soundOut.Play();
         }
 
         public void Stop()
         {
             _soundOut.Stop();
+            _currentSound.Position = 0;
         }
 
         private Stream GetNext()

@@ -57,7 +57,7 @@ namespace shootstep.view
         private void SetControls(Game game)
         {
             var sound = new SoundContainer();
-            sound.Init(resourses.sound1, resourses.sound2);
+            sound.Init(resourses.sound1, resourses.sound2, resourses.sound3, resourses.sound4);
 
             MouseDown += (sender, args) =>
             {

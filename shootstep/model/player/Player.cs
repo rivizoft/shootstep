@@ -17,7 +17,7 @@ namespace shootstep
             set
             {
                 _speedVector = value;
-                Move();
+                //Move();
             }
         }
         public Bitmap Sprite { get; set; }
@@ -53,17 +53,18 @@ namespace shootstep
         {
             if (SpeedVector.IsEmpty) return;
             var position = Position;
-            position.X += SpeedVector.X;
-            position.Y += SpeedVector.Y;
+            position.X += SpeedVector.X / 3;
+            position.Y += SpeedVector.Y / 3;
             Position = position;
             Moved?.Invoke();
         }
 
         public void UpdatePosition()
         {
+            Move();
             var speed = SpeedVector;
-            speed.X = speed.X * 3 / 4;
-            speed.Y = speed.Y * 3 / 4;
+            speed.X = speed.X * 15 / 16;
+            speed.Y = speed.Y * 15 / 16;
             SpeedVector = speed;
         }
 

@@ -30,6 +30,7 @@ namespace shootstep
             p.Y %= _heigth;
             gameObj.Position = p;
             gameObj.Moved += () => CheckCollisions(gameObj);
+            UpdateMap += gameObj.Move;
             this.Add(gameObj);
             if (gameObj.GetType() == typeof(Enemy)) Globals.GetGlobalInfo().Enemy.Count++;
         }
@@ -55,5 +56,12 @@ namespace shootstep
         
         public bool PositionFree(int x, int y) => this.Count(i => i.GetHashCode() == 
                                                                  new Point(x,y).GetHashCode()) == 0;
+
+        public void Update()
+        {
+            UpdateMap.Invoke();
+        }
+
+        private Action UpdateMap;
     }
 }

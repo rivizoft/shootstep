@@ -46,7 +46,8 @@ namespace shootstep
 
             CursorUpdate += point => _gun.Angle = (float)((Math.Atan2(point.Y - _gun.Position.Y, point.X - _gun.Position.X)
                                                     + 2 * Math.PI) * 180 / Math.PI) % 360;
-            Update += () => _player.UpdatePosition();
+            Update += () => _map.Update();
+            Update += TryAddEnemy;
             Update += () => _globalConfig.Update.Invoke();
 
             _timer = new Timer {Interval = 1};
@@ -75,7 +76,7 @@ namespace shootstep
         {
             foreach (var o in gameObjects)
             {
-                o.Moved += () => Update?.Invoke();
+                //o.Moved += () => Update?.Invoke();
                 _map.AddObject(o, false);
             }
         }

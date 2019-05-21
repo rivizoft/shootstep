@@ -12,12 +12,12 @@ namespace shootstep
         public static Enemy SpawnEnemy(Enemy sampleEnemy, Point playerPosition, Size windowSize, Point cameraShift)
         {
             var randomizer = new Random();
-            var spawnBehindVBorder = randomizer.Next(2) > 1;
-            var spawnPositionModifier = randomizer.Next(2) > 1 ? 1 : -1;
-            var x = playerPosition.X + spawnPositionModifier * cameraShift.X;
-            var y = playerPosition.Y + spawnPositionModifier * cameraShift.Y;
-            if (spawnBehindVBorder) y += randomizer.Next(-windowSize.Height / 2, windowSize.Height / 2);
-            else x += randomizer.Next(-windowSize.Width / 2, windowSize.Width / 2);
+            var spawnBehindVBorder = randomizer.Next(2) < 1;
+            var spawnPositionModifier = randomizer.Next(2) < 1 ? 1 : -1;
+            var x = playerPosition.X + spawnPositionModifier * 2 * windowSize.Width;
+            var y = playerPosition.Y + spawnPositionModifier * 2 * windowSize.Height;
+           // if (spawnBehindVBorder) y += randomizer.Next(-windowSize.Height / 2, windowSize.Height / 2);
+            //else x += randomizer.Next(-windowSize.Width / 2, windowSize.Width / 2);
             return new Enemy(new Point(x,y), sampleEnemy.Sprite, sampleEnemy.Bbox,sampleEnemy.SpriteGlow );
         }
 
@@ -38,15 +38,15 @@ namespace shootstep
         public void MoveTo(Point vector)
         {
             var position = Position;
-            position.X = vector.X;
-            position.Y = vector.Y;
+            position.X += vector.X;
+            position.Y += vector.Y;
             Position = position;
         }
 
-        public void HuntPlayer()
+        public void Move()
         {
             var p = Globals.GetGlobalInfo().Player.Position;
-            var d = new Point(Math.Sign(p.X - Position.X) * 4, Math.Sign(p.Y - Position.Y) * 4);
+            var d = new Point(Math.Sign(p.X - Position.X) * 2, Math.Sign(p.Y - Position.Y) * 2);
             MoveTo(d);
         }
 

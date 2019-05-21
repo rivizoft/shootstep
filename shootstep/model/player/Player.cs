@@ -49,7 +49,7 @@ namespace shootstep
             Moved?.Invoke();
         }
 
-        private void Move()
+        private void UpdatePosition()
         {
             if (SpeedVector.IsEmpty) return;
             var position = Position;
@@ -61,9 +61,9 @@ namespace shootstep
             Moved?.Invoke();
         }
 
-        public void UpdatePosition()
+        public void Move()
         {
-            Move();
+            UpdatePosition();
             var speed = SpeedVector;
             speed.X = speed.X * 15 / 16;
             speed.Y = speed.Y * 15 / 16;

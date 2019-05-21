@@ -41,6 +41,11 @@ namespace shootstep
             Position = vector;
         }
 
+        public void Move()
+        {
+            
+        }
+
         public void InvokeCollision(IBaseGameObj other) => Collision?.Invoke(other);
         public event Action<IBaseGameObj> Collision;
         public event Action Moved;

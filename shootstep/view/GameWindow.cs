@@ -41,7 +41,7 @@ namespace shootstep.view
             _game.GetGlobalOptions().WindowSize = this.Size;
             this._camera = new Camera(_game.GetPlayer(), this.Width, this.Height);
             this._camera.Moved += this.Invalidate;
-            Globals.Init(512,512, _camera, _game.GetPlayer());
+            Globals.Init(2048,2048, _camera, _game.GetPlayer());
             this.Controls.Clear();
         }
 

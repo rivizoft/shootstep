@@ -23,7 +23,6 @@ namespace shootstep
 
         private readonly MapOptions _mapOptions;
         public Size WindowSize { get; set; }
-        private Camera _cam;
         public readonly EnemyOptions Enemy;
         private Player _player;
         public IBaseGameObj Player => _player;
@@ -40,14 +39,14 @@ namespace shootstep
             _mapOptions.Height = mapHeight;
             _player = player;
             Enemy = new EnemyOptions(20,3);
-            _cam = cam;
+            View = cam;
             WindowSize = new Size(512,512);
             Update += Enemy.Update;
         }
 
         public MapOptions GetMapOptions() => _mapOptions;
 
-        public Camera View => _cam;
+        public Camera View { get; }
 
         public Action Update;
         

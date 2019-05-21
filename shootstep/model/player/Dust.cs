@@ -31,6 +31,11 @@ namespace shootstep
             Position = position;
         }
 
+        public void Move()
+        {
+            
+        }
+
         public void InvokeCollision(IBaseGameObj other)
         {
             throw new NotImplementedException();

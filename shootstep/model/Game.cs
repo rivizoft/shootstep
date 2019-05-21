@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
 namespace shootstep
@@ -8,9 +9,11 @@ namespace shootstep
     public class Game
     {
         //TODO: implement Game as main model controller
+        private Timer _timer;
         private Map _map;
         private Player _player;
         private Gun _gun;
+        private Dust _dust;
         private Point _cursorPosition;
         public Point CursorPosition
         {
@@ -25,14 +28,30 @@ namespace shootstep
         public Game(int mapWidth, int mapHeight)
         {
             _map = new Map(mapWidth, mapHeight);
-            _player = new Player(new Point(0,0), resourses.Player, new Rectangle(0, 0, 32, 32), resourses.Player);
-            _gun = new Gun(_player, resourses.Gun, new Rectangle(0, 0, 0, 0), resourses.Gun);
-            this.AddToMap(_player,_gun, 
-                new Enemy(new Point(64, 64), resourses.Enemy, new Rectangle(0,0,0,0), resourses.Enemy));
+
+            _player = new Player(new Point(0,0), 
+                resourses.Player, 
+                new Rectangle(0, 0, 32, 32), 
+                resourses.Player);
+
+            _gun = new Gun(_player, resourses.Gun, 
+                new Rectangle(0, 0, 0, 0), 
+                resourses.Gun);
+
+            _dust = new Dust(new Point(_player.Position.X + 40, 10),
+                resourses.Dust,
+                new Rectangle(_player.Position.X + 40, 10, 5, 5));
+
+            AddToMap(_player, _gun, _dust);
 
             CursorUpdate += point => _gun.Angle = (float)((Math.Atan2(point.Y - _gun.Position.Y, point.X - _gun.Position.X)
                                                     + 2 * Math.PI) * 180 / Math.PI) % 360;
-            this.Update += () => _player.UpdatePosition();
+            Update += () => _player.UpdatePosition();
+
+            _timer = new Timer();
+            _timer.Interval = 1;
+            _timer.Start();
+            _timer.Tick += (x, y) => Update.Invoke();
         }
 
         public Map GetMap()
@@ -45,6 +64,11 @@ namespace shootstep
             return _player;
         }
 
+        public Dust GetDust()
+        {
+            return _dust;
+        }
+
         public void AddToMap(params IBaseGameObj[] gameObjects)
         {
             foreach (var o in gameObjects)
@@ -52,7 +76,21 @@ namespace shootstep
                 o.Moved += () => Update?.Invoke();
                 _map.AddObject(o, false);
             }
-        } 
+        }
+
+        private void AddEllipses()
+        {
+            var random = new Random();
+            var countEllipses = random.Next(10, 30);
+            var ellipsesObjects = new Dust[countEllipses];
+
+            for (var i = 0; i < countEllipses; i++)
+            {
+                ellipsesObjects[i] = new Dust(new Point(_player.Position.X + 40, 10), 
+                    resourses.Dust, 
+                    new Rectangle(_player.Position.X + 40, 10, 5, 5));
+            }
+        }
 
         public event Action Update;
         private event Action<Point> CursorUpdate;

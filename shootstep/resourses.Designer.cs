@@ -63,6 +63,16 @@ namespace shootstep {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Dust {
+            get {
+                object obj = ResourceManager.GetObject("Dust", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Enemy {
             get {
                 object obj = ResourceManager.GetObject("Enemy", resourceCulture);

@@ -21,6 +21,7 @@ namespace shootstep.view
             _defaultSize = new Size(size.Width, size.Height);
             this.Init(size);
             this.SetControls(game);
+            _game.Update += MoveDust;
             this.DoubleBuffered = true;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Invalidate();
@@ -43,21 +44,30 @@ namespace shootstep.view
 
         //private void MoveEnemy()
 
+        private void MoveDust()
+        {
+            var dust = _game.GetDust();
+            var position = dust.Position;
+            position.X -= 1;
+            position.Y += 1;
+            dust.Position = position;
+        }
+
         private void SetControls(Game game)
         {
-            var firstSound = new SoundPlayer();
+            var sound = new SoundPlayer();
             SoundContainer.Init(resourses.sound1, resourses.sound2);
 
             MouseDown += (sender, args) =>
             {
-                firstSound.Stop();
-                firstSound.Stream = SoundContainer.GetNext();
-                firstSound.PlayLooping();
+                sound.Stop();
+                sound.Stream = SoundContainer.GetNext();
+                sound.PlayLooping();
             };
 
             MouseUp += (sender, args) =>
             {
-                firstSound.Stop();
+                sound.Stop();
             };
 
             KeyDown += (sender, args) =>
@@ -90,8 +100,8 @@ namespace shootstep.view
             foreach (var o in _game.GetMap())
                 if (o.GetType() != typeof(Gun))
                 {
-                    graphics.DrawImage(o.SpriteGlow, new Point(o.Position.X + shift.X - o.Sprite.Width * 3 / 4 - 2,
-                        o.Position.Y + shift.Y - o.Sprite.Height * 3 / 4 - 2));
+                    //graphics.DrawImage(o.SpriteGlow, new Point(o.Position.X + shift.X - o.Sprite.Width * 3 / 4 - 2,
+                    //    o.Position.Y + shift.Y - o.Sprite.Height * 3 / 4 - 2));
                     graphics.DrawImage(o.Sprite, new Point(o.Position.X + shift.X - o.Sprite.Width / 2,
                         o.Position.Y + shift.Y - o.Sprite.Height / 2));
                 }

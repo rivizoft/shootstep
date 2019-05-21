@@ -48,8 +48,7 @@ namespace shootstep
                                                     + 2 * Math.PI) * 180 / Math.PI) % 360;
             Update += () => _player.UpdatePosition();
 
-            _timer = new Timer();
-            _timer.Interval = 1;
+            _timer = new Timer {Interval = 1};
             _timer.Start();
             _timer.Tick += (x, y) => Update.Invoke();
         }
@@ -73,7 +72,7 @@ namespace shootstep
         {
             foreach (var o in gameObjects)
             {
-                o.Moved += () => Update?.Invoke();
+                //o.Moved += () => Update?.Invoke();
                 _map.AddObject(o, false);
             }
         }

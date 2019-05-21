@@ -71,15 +71,16 @@ namespace shootstep.view
 
             KeyDown += (sender, args) =>
             {
+                var speed = 24;
                 var s = game.GetPlayer().SpeedVector;
                 if (args.KeyCode == Keys.W)
-                    s.Y = -8;
+                    s.Y = -speed;
                 if (args.KeyCode == Keys.S)
-                    s.Y = 8;
+                    s.Y = speed;
                 if (args.KeyCode == Keys.A)
-                    s.X = -8;
+                    s.X = -speed;
                 if (args.KeyCode == Keys.D)
-                    s.X = 8;
+                    s.X = speed;
                 game.GetPlayer().SpeedVector = s;
                 game.CursorPosition = new Point(MousePosition.X - _camera.GetViewPoint().X,
                     MousePosition.Y - _camera.GetViewPoint().Y);
@@ -106,8 +107,9 @@ namespace shootstep.view
                 }
                 else
                 {
-                    graphics.TranslateTransform(o.Position.X + shift.X + o.Sprite.Width / 2,
-                        o.Position.Y + shift.Y + o.Sprite.Height / 2);
+                    graphics.TranslateTransform(
+                        _game.GetPlayer().Position.X + shift.X, //+ _game.GetPlayer().Sprite.Width / 4,
+                        _game.GetPlayer().Position.Y + shift.Y);// + _game.GetPlayer().Sprite.Height / 4);
                     graphics.RotateTransform((((Gun)o).Angle + (float)(Math.Atan(Math.PI / 2) * 90)) % 360);
                     graphics.DrawImage(o.Sprite, new Point(-o.Sprite.Width / 2, -2 * o.Sprite.Height));
                     graphics.ResetTransform();

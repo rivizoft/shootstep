@@ -62,6 +62,12 @@ namespace shootstep
             UpdateMap.Invoke();
         }
 
+        public void SetSize(int width, int height)
+        {
+            _width = width;
+            _heigth = height;
+        }
+
         private Action UpdateMap;
     }
 }

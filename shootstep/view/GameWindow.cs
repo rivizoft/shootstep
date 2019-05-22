@@ -17,7 +17,8 @@ namespace shootstep.view
         private readonly Game _game;
         private Size _defaultSize;
         private Camera _camera;
-        
+        private SoundContainer _sound;
+
         public GameWindow(Size size)
         {
             _game = new Game();
@@ -42,6 +43,7 @@ namespace shootstep.view
             this.Size = this.MaximumSize;
             _game.GetGlobalOptions().WindowSize = this.Size;
             this._camera = new Camera(_game.GetPlayer(), this.Width, this.Height);
+            //this._camera.Moved += this.Invalidate;
             _game.Update += _camera.Update;
             Globals.Init(2048,2048, _camera, _game.GetPlayer());
             _game.GetMap().SetSize(Globals.GetGlobalInfo().MapOptions.Width,
@@ -49,30 +51,47 @@ namespace shootstep.view
             this.Controls.Clear();
         }
 
-        //private void MoveEnemy()
-
         private void MoveDust()
         {
+            var speedX = 1;
+            var speedY = 1;
+            var random = new Random();
             var dust = _game.GetDust();
-            var position = dust.Position;
-            position.X -= 1;
-            position.Y += 1;
-            dust.Position = position;
+
+            if (_sound.CurrentSoundPosition != 0)
+            {
+                speedX *= 20;
+                speedY *= 20;
+            }
+            else
+            {
+                speedX = 1;
+                speedY = 1;
+            }
+
+            foreach (var d in dust)
+            {
+                var position = d.Position;
+                position.X += random.Next(-speedX, speedX + 1);
+                position.Y += random.Next(-speedY, speedY + 1);
+                d.Position = position;
+            }
         }
 
         private void SetControls(Game game)
         {
-            var sound = new SoundContainer();
-            sound.Init(resourses.sound1, resourses.sound2, resourses.sound3, resourses.sound4);
+            _sound = new SoundContainer();
+            _sound.Init(resourses.sound1, resourses.sound2, 
+                resourses.sound3, resourses.sound4);
 
             MouseDown += (sender, args) =>
             {
-                sound.PlayLooping();
+                _sound.PlayLooping();
             };
 
             MouseUp += (sender, args) =>
             {
-                sound.Stop();
+                _sound.Stop();
             };
 
             KeyDown += (sender, args) =>
@@ -106,6 +125,7 @@ namespace shootstep.view
             foreach (var o in _game.GetMap())
                 if (o.GetType() != typeof(Gun))
                 {
+                    //graphics.DrawImage(resourses.BackGround, new Point(0, 0));
                     //graphics.DrawImage(o.SpriteGlow, new Point(o.Position.X + shift.X - o.Sprite.Width * 3 / 4 - 2,
                     //    o.Position.Y + shift.Y - o.Sprite.Height * 3 / 4 - 2));
                     graphics.DrawImage(o.Sprite, new Point(o.Position.X + shift.X - o.Sprite.Width / 2,

@@ -9,11 +9,13 @@ namespace shootstep.view
         private static Stream[] _audioContainer;
         private WaveOutEvent _soundOut;
         private Stream _currentSound;
+        public long CurrentSoundPosition => _currentSound.Position;
 
         public void Init(params Stream[] audio)
         {
             _audioContainer = audio;
             _soundOut = new WaveOutEvent();
+            _currentSound = audio[0];
         }
 
         public void Play()

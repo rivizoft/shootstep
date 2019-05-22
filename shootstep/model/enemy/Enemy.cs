@@ -10,7 +10,8 @@ namespace shootstep
 {
     class Enemy : IBaseGameObj
     {
-        public static Enemy SpawnEnemy(Enemy sampleEnemy, Point playerPosition, Size windowSize, Point cameraShift)
+        public static Enemy SpawnEnemy(Enemy sampleEnemy, 
+            Point playerPosition, Size windowSize, Point cameraShift)
         {
             var randomizer = new Random();
             var spawnBehindVBorder = randomizer.Next(2) < 1;

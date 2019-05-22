@@ -14,7 +14,7 @@ namespace shootstep
         private Map _map;
         private Player _player;
         private Gun _gun;
-        private Dust _dust;
+        private Dust[] _dust;
         private Point _cursorPosition;
         private Globals _globalConfig;
         
@@ -40,10 +40,9 @@ namespace shootstep
             _gun = new Gun(_player, resourses.Gun, 
                 new Rectangle(0, 0, 0, 0), 
                 resourses.Gun);
-            _dust = new Dust(new Point(_player.Position.X + 40, 10),
-                resourses.Dust,
-                new Rectangle(_player.Position.X + 40, 10, 5, 5));
-            AddToMap(_player, _gun, _dust);
+
+            AddDust();
+            AddToMap(_player, _gun);
 
             CursorUpdate += point => _gun.Angle = (float)((Math.Atan2(point.Y - _gun.Position.Y, point.X - _gun.Position.X)
                                                     + 2 * Math.PI) * 180 / Math.PI) % 360;
@@ -68,7 +67,7 @@ namespace shootstep
             return _player;
         }
 
-        public Dust GetDust()
+        public Dust[] GetDust()
         {
             return _dust;
         }
@@ -93,17 +92,20 @@ namespace shootstep
             }
         }
 
-        private void AddEllipses()
+        private void AddDust()
         {
             var random = new Random();
-            var countEllipses = random.Next(10, 30);
-            var ellipsesObjects = new Dust[countEllipses];
+            var countEllipses = random.Next(500, 1000);
+            _dust = new Dust[countEllipses];
 
             for (var i = 0; i < countEllipses; i++)
             {
-                ellipsesObjects[i] = new Dust(new Point(_player.Position.X + 40, 10), 
-                    resourses.Dust, 
-                    new Rectangle(_player.Position.X + 40, 10, 5, 5));
+                var size = random.Next(1, 8);
+                var pos = new Point(random.Next(0, _globalConfig.GetMapOptions().Width), 
+                    random.Next(0, _globalConfig.GetMapOptions().Height));
+                _dust[i] = new Dust(pos, new Bitmap(resourses.Dust, size, size),
+                    new Rectangle(pos.X, pos.Y, size, size));
+                AddToMap(_dust[i]);
             }
         }
 

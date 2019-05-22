@@ -95,7 +95,7 @@ namespace shootstep
         private void AddEllipses()
         {
             var random = new Random();
-            var countEllipses = random.Next(10, 30);
+            var countEllipses = random.Next(70, 150);
             var ellipsesObjects = new Dust[countEllipses];
 
             for (var i = 0; i < countEllipses; i++)

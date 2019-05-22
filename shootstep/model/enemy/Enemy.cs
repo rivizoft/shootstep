@@ -9,13 +9,14 @@ namespace shootstep
 {
     class Enemy : IBaseGameObj
     {
-        public static Enemy SpawnEnemy(Enemy sampleEnemy, Point playerPosition, Size windowSize, Point cameraShift)
+        public static Enemy SpawnEnemy(Enemy sampleEnemy, 
+            Point playerPosition, Size windowSize, Point cameraShift)
         {
             var randomizer = new Random();
             var spawnBehindVBorder = randomizer.Next(2) < 1;
             var spawnPositionModifier = randomizer.Next(2) < 1 ? 1 : -1;
-            var x = playerPosition.X + spawnPositionModifier * 2 * windowSize.Width;
-            var y = playerPosition.Y + spawnPositionModifier * 2 * windowSize.Height;
+            var x = playerPosition.X + spawnPositionModifier * windowSize.Width;
+            var y = playerPosition.Y + spawnPositionModifier * windowSize.Height;
            // if (spawnBehindVBorder) y += randomizer.Next(-windowSize.Height / 2, windowSize.Height / 2);
             //else x += randomizer.Next(-windowSize.Width / 2, windowSize.Width / 2);
             return new Enemy(new Point(x,y), sampleEnemy.Sprite, sampleEnemy.Bbox,sampleEnemy.SpriteGlow );

@@ -15,7 +15,7 @@ namespace shootstep
             {
                 var player = new Player(Point.Empty, resourses.Player,
                     new Rectangle(Point.Empty, resourses.Player.Size), resourses.PlayerLight);
-                Init(512,512, new Camera(player, 512, 512), player);
+                Init(4096,4096, new Camera(player, 512, 512), player);
                 Console.WriteLine("Global config hasn't been initialised; using defaults");
             }
             return _instance;

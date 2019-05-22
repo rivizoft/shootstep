@@ -100,7 +100,8 @@ namespace shootstep
             for (var i = 0; i < countEllipses; i++)
             {
                 var size = random.Next(1, 8);
-                var pos = new Point(random.Next(1400, 10000), random.Next(1400, 10000));
+                var pos = new Point(random.Next(0, _globalConfig.GetMapOptions().Width), 
+                    random.Next(0, _globalConfig.GetMapOptions().Height));
                 _dust[i] = new Dust(pos, new Bitmap(resourses.Dust, size, size),
                     new Rectangle(pos.X, pos.Y, size, size));
                 AddToMap(_dust[i]);

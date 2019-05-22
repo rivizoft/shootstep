@@ -15,7 +15,8 @@ namespace shootstep.view
         private readonly Game _game;
         private Size _defaultSize;
         private Camera _camera;
-        
+        private SoundContainer _sound;
+
         public GameWindow(Size size)
         {
             _game = new Game();
@@ -50,32 +51,45 @@ namespace shootstep.view
 
         private void MoveDust()
         {
+            var speedX = 1;
+            var speedY = 1;
             var random = new Random();
             var dust = _game.GetDust();
+
+            if (_sound.CurrentSoundPosition != 0)
+            {
+                speedX *= 20;
+                speedY *= 20;
+            }
+            else
+            {
+                speedX = 1;
+                speedY = 1;
+            }
 
             foreach (var d in dust)
             {
                 var position = d.Position;
-                position.X += random.Next(-1, 2);
-                position.Y += random.Next(-1, 2);
+                position.X += random.Next(-speedX, speedX + 1);
+                position.Y += random.Next(-speedY, speedY + 1);
                 d.Position = position;
             }
         }
 
         private void SetControls(Game game)
         {
-            var sound = new SoundContainer();
-            sound.Init(resourses.sound1, resourses.sound2, 
+            _sound = new SoundContainer();
+            _sound.Init(resourses.sound1, resourses.sound2, 
                 resourses.sound3, resourses.sound4);
 
             MouseDown += (sender, args) =>
             {
-                sound.PlayLooping();
+                _sound.PlayLooping();
             };
 
             MouseUp += (sender, args) =>
             {
-                sound.Stop();
+                _sound.Stop();
             };
 
             KeyDown += (sender, args) =>

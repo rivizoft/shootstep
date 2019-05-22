@@ -89,6 +89,13 @@ namespace shootstep
                         new Rectangle(Point.Empty, resourses.Enemy.Size), resourses.Enemy),
                     _player.Position, e.WindowSize, e.View.GetViewPoint()));
             }
+
+            if (Globals.GetGlobalInfo().SoundContainer.SoundOut.Volume > 1)
+            {
+                var bullet = new DubstepHolyRay(_globalConfig.Player.Position, resourses.bullet, 
+                    new Rectangle(_globalConfig.Player.Position, resourses.bullet.Size), resourses.bullet,
+                    new Point((CursorPosition.X - _gun.Position.X) / 10, (CursorPosition.Y - _gun.Position.Y) / 10));
+            }
         }
 
         public void AddDust()

@@ -84,6 +84,7 @@ namespace shootstep.view
             _sound = new SoundContainer();
             _sound.Init(resourses.sound1, resourses.sound2, 
                 resourses.sound3, resourses.sound4);
+            Globals.GetGlobalInfo().SoundContainer = _sound;
 
             MouseDown += (sender, args) =>
             {

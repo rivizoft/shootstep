@@ -34,6 +34,7 @@ namespace shootstep
             Position = bindPlayer.Position;
             Sprite = sprite;
             Bbox = bbox;
+            Health = _bindPlayer.Health;
             Angle = 0;
             SpriteGlow = spriteGlow;
         }

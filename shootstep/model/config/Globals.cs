@@ -15,6 +15,7 @@ namespace shootstep.model.config
         public Camera View { get; }
         public Size WindowSize { get; set; }
         public readonly Action Update;
+        public SoundContainer SoundContainer { get; set; }
 
         private Globals(int mapWidth, int mapHeight, Camera cam, Player player)
         {

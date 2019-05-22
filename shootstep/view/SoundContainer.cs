@@ -7,40 +7,40 @@ namespace shootstep.view
     public class SoundContainer
     {
         private static Stream[] _audioContainer;
-        private WaveOutEvent _soundOut;
+        public WaveOutEvent SoundOut { get; set; }
         private Stream _currentSound;
         public long CurrentSoundPosition => _currentSound.Position;
 
         public void Init(params Stream[] audio)
         {
             _audioContainer = audio;
-            _soundOut = new WaveOutEvent();
+            SoundOut = new WaveOutEvent();
             _currentSound = audio[0];
         }
 
         public void Play()
         {
             _currentSound = GetNext();
-            _soundOut.Init(new WaveFileReader(_currentSound));
-            _soundOut.Play();
+            SoundOut.Init(new WaveFileReader(_currentSound));
+            SoundOut.Play();
         }
 
         public void PlayLooping()
         {
             _currentSound = GetNext();
-            _soundOut.Init(new LoopStream(new WaveFileReader(_currentSound)));
-            _soundOut.Play();
+            SoundOut.Init(new LoopStream(new WaveFileReader(_currentSound)));
+            SoundOut.Play();
         }
 
         public void Stop()
         {
-            _soundOut.Stop();
+            SoundOut.Stop();
             _currentSound.Position = 0;
         }
 
         public void Pause()
         {
-            _soundOut.Pause();
+            SoundOut.Pause();
 
             if (_currentSound.Length == _currentSound.Position)
                 _currentSound.Position = 0;

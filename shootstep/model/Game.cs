@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using shootstep.model.config;
 
 namespace shootstep
 {
@@ -30,7 +31,7 @@ namespace shootstep
         public Game()
         {
             _globalConfig = Globals.GetGlobalInfo();
-            _map = new Map(_globalConfig.GetMapOptions().Width, _globalConfig.GetMapOptions().Height);
+            _map = new Map(_globalConfig.MapOptions.Width, _globalConfig.MapOptions.Height);
 
             _player = new Player(new Point(0,0), 
                 resourses.Player, 

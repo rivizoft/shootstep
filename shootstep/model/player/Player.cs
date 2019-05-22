@@ -5,21 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing.Imaging;
+using shootstep.model.config;
 
 namespace shootstep
 {
     public class Player : IBaseGameObj
     {
-        private Point _speedVector;
-        public Point SpeedVector
-        {
-            get => _speedVector;
-            set
-            {
-                _speedVector = value;
-                //Move();
-            }
-        }
+        public Point SpeedVector { get; set; }
+        public int Health { get; set; }
+
         public Bitmap Sprite { get; set; }
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
@@ -30,9 +24,10 @@ namespace shootstep
             Position = position;
             Sprite = sprite;
             Bbox = bbox;
+            Health = 100;
             //1 - степень размытия
             SpriteGlow = new Bitmap(BlurEffect.Blur(spriteGlow, 1), sprite.Width + 30, sprite.Height + 30);
-            Collision += (other) => SpeedVector = Point.Empty;
+            Collision += (other) => SpeedVector = new Point(SpeedVector.X / 2, SpeedVector.Y / 2);
         }
         
         public Player(int x, int y, Bitmap sprite, int bboxX, int bboxY, 
@@ -54,9 +49,9 @@ namespace shootstep
             if (SpeedVector.IsEmpty) return;
             var position = Position;
             position.X += SpeedVector.X / 3;
-            position.X %= Globals.GetGlobalInfo().GetMapOptions().Width;
+            position.X %= Globals.GetGlobalInfo().MapOptions.Width;
             position.Y += SpeedVector.Y / 3;
-            position.Y %= Globals.GetGlobalInfo().GetMapOptions().Height;
+            position.Y %= Globals.GetGlobalInfo().MapOptions.Height;
             Position = position;
             Moved?.Invoke();
         }
@@ -69,11 +64,7 @@ namespace shootstep
             speed.Y = speed.Y * 15 / 16;
             SpeedVector = speed;
         }
-
-        public override int GetHashCode()
-        {
-            return Position.GetHashCode();
-        }
+        
 
         public event Action<IBaseGameObj> Collision;
         public event Action Moved;

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using shootstep.model.config;
 
 namespace shootstep
 {
@@ -16,14 +17,12 @@ namespace shootstep
             var spawnPositionModifier = randomizer.Next(2) < 1 ? 1 : -1;
             var x = playerPosition.X + spawnPositionModifier * windowSize.Width;
             var y = playerPosition.Y + spawnPositionModifier * windowSize.Height;
-           // if (spawnBehindVBorder) y += randomizer.Next(-windowSize.Height / 2, windowSize.Height / 2);
-            //else x += randomizer.Next(-windowSize.Width / 2, windowSize.Width / 2);
             sampleEnemy.MoveTo(new Point(x,y));
-            //Console.WriteLine("Enemy spawned at {0},{1}", sampleEnemy.Position.X, sampleEnemy.Position.Y);
             return sampleEnemy;
         }
 
         public Point SpeedVector { get; set; }
+        public int Health { get; set; }
         public Bitmap Sprite { get; set; }
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
@@ -34,7 +33,30 @@ namespace shootstep
             Position = position;
             Sprite = sprite;
             Bbox = bbox;
+            Health = 4;
             SpriteGlow = BlurEffect.Blur(new Bitmap(spriteGlow, sprite.Width + 30, sprite.Height + 30), 10);
+            InitCollisions();
+        }
+
+        private void InitCollisions()
+        {
+            Collision += (other) =>
+            {
+                switch (other)
+                {
+                    case Player p:
+                        p.Health--;
+                        SpeedVector = new Point(-2 * SpeedVector.X, -2 * SpeedVector.Y);
+                        break;
+                    case DubstepHolyRay d:
+                        Health--;
+                        SpeedVector = new Point(SpeedVector.X / 3, SpeedVector.Y / 3);
+                        break;
+                    case Enemy e:
+                        SpeedVector = new Point(-2 * SpeedVector.X, -2 * SpeedVector.Y);
+                        break;
+                }
+            };
         }
 
         public void MoveTo(Point vector)
@@ -43,6 +65,7 @@ namespace shootstep
             position.X += vector.X;
             position.Y += vector.Y;
             Position = position;
+            Moved?.Invoke();
            // Console.WriteLine("Enemy moved to {0},{1}", Position.X, Position.Y);
         }
 
@@ -50,7 +73,8 @@ namespace shootstep
         {
             var p = Globals.GetGlobalInfo().Player.Position;
             var d = new Point(Math.Sign(p.X - Position.X) * 2, Math.Sign(p.Y - Position.Y) * 2);
-            MoveTo(d);
+            SpeedVector = d;
+            MoveTo(SpeedVector);
         }
 
         public void InvokeCollision(IBaseGameObj other) => Collision?.Invoke(other);

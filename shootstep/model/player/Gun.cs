@@ -10,11 +10,13 @@ namespace shootstep
     public class Gun : IBaseGameObj
     {
         public Point SpeedVector { get; set; }
+        public int Health { get; set; }
         public Bitmap Sprite { get; set; }
         private float _angle;
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
         public Bitmap SpriteGlow { get; set; }
+        private IBaseGameObj _bindPlayer;
 
         public float Angle
         {
@@ -28,11 +30,11 @@ namespace shootstep
 
         public Gun(IBaseGameObj bindPlayer, Bitmap sprite, Rectangle bbox, Bitmap spriteGlow)
         {
+            _bindPlayer = bindPlayer;
             Position = bindPlayer.Position;
             Sprite = sprite;
             Bbox = bbox;
             Angle = 0;
-            bindPlayer.Moved += () => Position = bindPlayer.Position;
             SpriteGlow = spriteGlow;
         }
 
@@ -43,7 +45,8 @@ namespace shootstep
 
         public void Move()
         {
-            
+            Health = _bindPlayer.Health;
+            Position = _bindPlayer.Position;
         }
 
         public void InvokeCollision(IBaseGameObj other) => Collision?.Invoke(other);

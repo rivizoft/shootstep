@@ -145,4 +145,7 @@
   <data name="sound4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\sound4.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Global_config_hasn_t_been_initialised" xml:space="preserve">
+    <value>Global config hasn't been initialised; using defaults</value>
+  </data>
 </root>

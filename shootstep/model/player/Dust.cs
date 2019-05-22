@@ -11,6 +11,7 @@ namespace shootstep
     public class Dust : IBaseGameObj
     {
         public Point SpeedVector { get; set; }
+        public int Health { get; set; }
         public Bitmap Sprite { get; set; }
         public Point Position { get; set; }
         public Rectangle Bbox { get; set; }
@@ -20,6 +21,7 @@ namespace shootstep
         {
             Position = position;
             Sprite = sprite;
+            Health = 2;
             Bbox = bbox;
         }
 

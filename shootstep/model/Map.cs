@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using shootstep.model.config;
 
 namespace shootstep
 {
@@ -21,6 +22,8 @@ namespace shootstep
             {
                 AddObject(c, false);
             }
+
+            UpdateMap += RemoveDead;
         }
 
         public void AddObject(IBaseGameObj gameObj, bool collisionReplace)
@@ -37,21 +40,22 @@ namespace shootstep
 
         public void CheckCollisions(IBaseGameObj gameObj)
         {
-            foreach (var other in this)
-            {
-                if (other != gameObj)
+                foreach (var other in this)
                 {
-                    var bbox1 = gameObj.Bbox;
-                    bbox1.Location = gameObj.Position;
-                    var bbox2 = other.Bbox;
-                    bbox2.Location = other.Position;
-                    if (bbox1.IntersectsWith(bbox2))
+                    //if (other.Health <= 0) Remove(other);
+                    if (other != gameObj)
                     {
-                        Console.WriteLine("Collision");
-                        gameObj.InvokeCollision(other);
+                        var bbox1 = gameObj.Bbox;
+                        bbox1.Location = gameObj.Position;
+                        var bbox2 = other.Bbox;
+                        bbox2.Location = other.Position;
+                        if (bbox1.IntersectsWith(bbox2))
+                        {
+                            Console.WriteLine("Collision");
+                            gameObj.InvokeCollision(other);
+                        }
                     }
                 }
-            }
         }
         
         public bool PositionFree(int x, int y) => this.Count(i => i.GetHashCode() == 
@@ -60,6 +64,11 @@ namespace shootstep
         public void Update()
         {
             UpdateMap.Invoke();
+        }
+
+        private void RemoveDead()
+        {
+            this.RemoveWhere(x => x.Health <= 0);
         }
 
         public void SetSize(int width, int height)

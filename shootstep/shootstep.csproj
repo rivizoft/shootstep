@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="model\Globals.cs" />
+    <Compile Include="model\config\EnemyOptions.cs" />
+    <Compile Include="model\config\Globals.cs" />
+    <Compile Include="model\config\MapOptions.cs" />
     <Compile Include="model\IBaseGameObj.cs" />
     <Compile Include="model\enemy\Enemy.cs" />
     <Compile Include="model\Game.cs" />

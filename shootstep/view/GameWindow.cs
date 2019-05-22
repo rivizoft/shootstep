@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Media;
 using System.Runtime.Remoting.Channels;
@@ -7,6 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using NAudio.Wave;
+using shootstep.model.config;
 
 namespace shootstep.view
 {
@@ -42,8 +44,8 @@ namespace shootstep.view
             this._camera = new Camera(_game.GetPlayer(), this.Width, this.Height);
             _game.Update += _camera.Update;
             Globals.Init(2048,2048, _camera, _game.GetPlayer());
-            _game.GetMap().SetSize(Globals.GetGlobalInfo().GetMapOptions().Width,
-                Globals.GetGlobalInfo().GetMapOptions().Height);
+            _game.GetMap().SetSize(Globals.GetGlobalInfo().MapOptions.Width,
+                Globals.GetGlobalInfo().MapOptions.Height);
             this.Controls.Clear();
         }
 
@@ -119,8 +121,9 @@ namespace shootstep.view
                     graphics.ResetTransform();
                 }
 
+            graphics.DrawString(Globals.GetGlobalInfo().Player.Health.ToString(), new Font("Arial", 12), 
+                new SolidBrush(Color.Beige), 32, 32);
             
-
             _camera.Update();
         }
     }

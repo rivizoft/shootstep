@@ -41,7 +41,6 @@ namespace shootstep
                 new Rectangle(0, 0, 0, 0), 
                 resourses.Gun);
 
-            AddDust();
             AddToMap(_player, _gun);
 
             CursorUpdate += point => _gun.Angle = (float)((Math.Atan2(point.Y - _gun.Position.Y, point.X - _gun.Position.X)
@@ -92,7 +91,7 @@ namespace shootstep
             }
         }
 
-        private void AddDust()
+        public void AddDust()
         {
             var random = new Random();
             var countEllipses = random.Next(500, 1000);
@@ -101,8 +100,8 @@ namespace shootstep
             for (var i = 0; i < countEllipses; i++)
             {
                 var size = random.Next(1, 8);
-                var pos = new Point(random.Next(0, _globalConfig.GetMapOptions().Width), 
-                    random.Next(0, _globalConfig.GetMapOptions().Height));
+                var pos = new Point(random.Next(-_globalConfig.MapOptions.Width, _globalConfig.MapOptions.Width), 
+                    random.Next(-_globalConfig.MapOptions.Height, _globalConfig.MapOptions.Height));
                 _dust[i] = new Dust(pos, new Bitmap(resourses.Dust, size, size),
                     new Rectangle(pos.X, pos.Y, size, size));
                 AddToMap(_dust[i]);

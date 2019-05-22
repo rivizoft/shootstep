@@ -73,6 +73,16 @@ namespace shootstep {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bullet {
+            get {
+                object obj = ResourceManager.GetObject("bullet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Dust {
             get {
                 object obj = ResourceManager.GetObject("Dust", resourceCulture);
@@ -87,6 +97,15 @@ namespace shootstep {
             get {
                 object obj = ResourceManager.GetObject("Enemy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Global config hasn&apos;t been initialised; using defaults.
+        /// </summary>
+        internal static string Global_config_hasn_t_been_initialised {
+            get {
+                return ResourceManager.GetString("Global_config_hasn_t_been_initialised", resourceCulture);
             }
         }
         

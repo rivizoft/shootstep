@@ -48,6 +48,7 @@ namespace shootstep.view
             Globals.Init(2048,2048, _camera, _game.GetPlayer());
             _game.GetMap().SetSize(Globals.GetGlobalInfo().MapOptions.Width,
                 Globals.GetGlobalInfo().MapOptions.Height);
+            _game.AddDust();
             this.Controls.Clear();
         }
 
@@ -125,11 +126,8 @@ namespace shootstep.view
             foreach (var o in _game.GetMap())
                 if (o.GetType() != typeof(Gun))
                 {
-                    //graphics.DrawImage(resourses.BackGround, new Point(0, 0));
-                    //graphics.DrawImage(o.SpriteGlow, new Point(o.Position.X + shift.X - o.Sprite.Width * 3 / 4 - 2,
-                    //    o.Position.Y + shift.Y - o.Sprite.Height * 3 / 4 - 2));
-                    graphics.DrawImage(o.Sprite, new Point(o.Position.X + shift.X - o.Sprite.Width / 2,
-                        o.Position.Y + shift.Y - o.Sprite.Height / 2));
+                        graphics.DrawImage(o.Sprite, new Point(o.Position.X + shift.X - o.Sprite.Width / 2,
+                            o.Position.Y + shift.Y - o.Sprite.Height / 2));
                 }
                 else
                 {

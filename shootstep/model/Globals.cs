@@ -38,7 +38,7 @@ namespace shootstep
             _mapOptions.Width = mapWidth;
             _mapOptions.Height = mapHeight;
             _player = player;
-            Enemy = new EnemyOptions(20,3);
+            Enemy = new EnemyOptions(1000,3);
             View = cam;
             WindowSize = new Size(512,512);
             Update += Enemy.Update;

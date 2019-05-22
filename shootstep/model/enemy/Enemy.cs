@@ -19,7 +19,9 @@ namespace shootstep
             var y = playerPosition.Y + spawnPositionModifier * windowSize.Height;
            // if (spawnBehindVBorder) y += randomizer.Next(-windowSize.Height / 2, windowSize.Height / 2);
             //else x += randomizer.Next(-windowSize.Width / 2, windowSize.Width / 2);
-            return new Enemy(new Point(x,y), sampleEnemy.Sprite, sampleEnemy.Bbox,sampleEnemy.SpriteGlow );
+            sampleEnemy.MoveTo(new Point(x,y));
+            //Console.WriteLine("Enemy spawned at {0},{1}", sampleEnemy.Position.X, sampleEnemy.Position.Y);
+            return sampleEnemy;
         }
 
         public Point SpeedVector { get; set; }
@@ -42,6 +44,7 @@ namespace shootstep
             position.X += vector.X;
             position.Y += vector.Y;
             Position = position;
+           // Console.WriteLine("Enemy moved to {0},{1}", Position.X, Position.Y);
         }
 
         public void Move()

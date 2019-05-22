@@ -45,8 +45,11 @@ namespace shootstep.view
             var newY = _height / 2 - _followObj.Position.Y;
             _shift.X += (((_shift.X + newX) / 2) - _shift.X) / _hDelay;
             _shift.Y += (((_shift.Y + newY) / 2) - _shift.Y) / _vDelay;
+<<<<<<< HEAD
             //if (_shift.X != _prevShift.X || _shift.Y != _prevShift.Y)
             //    Moved?.Invoke();
+=======
+>>>>>>> 9468e4d2ae476c9d7f6b50bf1f334a1efe59de31
         }
 
         public Point GetViewPoint() => _shift;

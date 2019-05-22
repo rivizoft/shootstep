@@ -40,9 +40,14 @@ namespace shootstep.view
             this.Size = this.MaximumSize;
             _game.GetGlobalOptions().WindowSize = this.Size;
             this._camera = new Camera(_game.GetPlayer(), this.Width, this.Height);
+<<<<<<< HEAD
             //this._camera.Moved += this.Invalidate;
+=======
+>>>>>>> 9468e4d2ae476c9d7f6b50bf1f334a1efe59de31
             _game.Update += _camera.Update;
             Globals.Init(2048,2048, _camera, _game.GetPlayer());
+            _game.GetMap().SetSize(Globals.GetGlobalInfo().GetMapOptions().Width,
+                Globals.GetGlobalInfo().GetMapOptions().Height);
             this.Controls.Clear();
         }
 

@@ -48,21 +48,25 @@ namespace shootstep.view
             this.Controls.Clear();
         }
 
-        //private void MoveEnemy()
-
         private void MoveDust()
         {
+            var random = new Random();
             var dust = _game.GetDust();
-            var position = dust.Position;
-            position.X -= 1;
-            position.Y += 1;
-            dust.Position = position;
+
+            foreach (var d in dust)
+            {
+                var position = d.Position;
+                position.X += random.Next(-1, 2);
+                position.Y += random.Next(-1, 2);
+                d.Position = position;
+            }
         }
 
         private void SetControls(Game game)
         {
             var sound = new SoundContainer();
-            sound.Init(resourses.sound1, resourses.sound2, resourses.sound3, resourses.sound4);
+            sound.Init(resourses.sound1, resourses.sound2, 
+                resourses.sound3, resourses.sound4);
 
             MouseDown += (sender, args) =>
             {
